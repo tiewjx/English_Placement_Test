@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>English Level Test — A0 to B2</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%93%9D%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F7F6F1;
+  --panel:#FFFFFF;
+  --ink:#20281F;
+  --ink-soft:#5B6459;
+  --line:#DEDACB;
+  --accent:#3B6E63;
+  --accent-soft:#E4EDE9;
+  --amber:#B98A34;
+  --amber-soft:#F4E9D4;
+  --brick:#A85338;
+  --brick-soft:#F5E4DC;
+  --radius:10px;
+}
+*{box-sizing:border-box;}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:'IBM Plex Sans',sans-serif;
+  line-height:1.5;
+}
+.wrap{
+  max-width:900px;
+  margin:0 auto;
+  padding:32px 20px 100px;
+}
+.header{
+  border-bottom:2px solid var(--ink);
+  padding-bottom:20px;
+  margin-bottom:28px;
+}
+h1{
+  font-family:'Fraunces',serif;
+  font-weight:600;
+  font-size:clamp(28px,4vw,40px);
+  margin:0 0 6px;
+  letter-spacing:-0.01em;
+}
+.sub{color:var(--ink-soft);font-size:15px;margin-bottom:18px;}
+.student-fields{
+  display:flex;
+  gap:16px;
+  flex-wrap:wrap;
+  margin-top:16px;
+}
+.student-fields label{
+  font-size:13px;
+  color:var(--ink-soft);
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+  flex:1;
+  min-width:180px;
+}
+.student-fields input{
+  font-family:'IBM Plex Sans',sans-serif;
+  font-size:15px;
+  padding:8px 10px;
+  border:1px solid var(--line);
+  border-radius:6px;
+  background:var(--panel);
+  color:var(--ink);
+}
+
+.instructions{
+  display:flex;
+  align-items:center;
+  gap:28px;
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:18px 24px;
+  margin-bottom:32px;
+}
+.rules-icons{
+  display:flex;
+  gap:14px;
+  flex-shrink:0;
+}
+.rule-icon{
+  width:64px;
+  height:64px;
+  border-radius:50%;
+  background:var(--bg);
+  border:1px solid var(--line);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:0 2px 6px rgba(32,40,31,0.06);
+}
+.rule-icon svg{
+  width:40px;
+  height:40px;
+}
+.rules-text{
+  margin:0;
+  font-size:14px;
+  color:var(--ink-soft);
+  border-left:1px solid var(--line);
+  padding-left:24px;
+}
+@media (max-width:560px){
+  .instructions{flex-direction:column;align-items:flex-start;}
+  .rules-text{border-left:none;padding-left:0;border-top:1px solid var(--line);padding-top:14px;}
+}
+.part{
+  margin-bottom:40px;
+}
+.part-title{
+  font-family:'Fraunces',serif;
+  font-weight:600;
+  font-size:22px;
+  display:flex;
+  align-items:baseline;
+  gap:10px;
+  border-bottom:1px solid var(--line);
+  padding-bottom:10px;
+  margin-bottom:18px;
+}
+.part-title .tag{
+  font-family:'IBM Plex Sans',sans-serif;
+  font-weight:500;
+  font-size:13px;
+  color:var(--accent);
+  background:var(--accent-soft);
+  padding:3px 10px;
+  border-radius:20px;
+}
+.part-desc{
+  font-size:14.5px;
+  color:var(--ink-soft);
+  margin:0 0 18px;
+  font-style:italic;
+}
+.q{
+  padding:16px 0;
+  margin-bottom:0;
+  border-bottom:1px solid var(--line);
+}
+.q-text{
+  font-size:16px;
+  margin-bottom:12px;
+  font-weight:500;
+}
+.q-text .num{
+  font-family:'Fraunces',serif;
+  font-weight:600;
+  color:var(--accent);
+  margin-right:6px;
+}
+.opts{
+  display:flex;
+  flex-direction:column;
+  gap:2px;
+}
+.opt{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:7px 4px;
+  border-radius:6px;
+  cursor:pointer;
+  font-size:15px;
+  transition:background .15s;
+}
+.opt:hover{background:var(--accent-soft);}
+.opt input{accent-color:var(--accent);width:16px;height:16px;flex-shrink:0;}
+.opt.correct{background:var(--accent-soft);color:var(--accent);font-weight:500;}
+.opt.incorrect{background:var(--brick-soft);color:var(--brick);}
+
+.wf-item{
+  padding:16px 0;
+  border-bottom:1px solid var(--line);
+}
+.wf-item .base{
+  font-style:italic;
+  font-weight:400;
+  color:var(--ink-soft);
+  margin-left:8px;
+}
+
+.passage{
+  background:var(--panel);
+  border-left:3px solid var(--accent);
+  border-radius:0 var(--radius) var(--radius) 0;
+  padding:22px 26px;
+  margin-bottom:18px;
+  font-size:18px;
+  line-height:1.7;
+  color:var(--ink);
+}
+.passage-title{
+  font-family:'Fraunces',serif;
+  font-weight:600;
+  font-size:16px;
+  color:var(--accent);
+  margin-bottom:10px;
+}
+
+textarea{
+  width:100%;
+  min-height:220px;
+  font-family:'IBM Plex Sans',sans-serif;
+  font-size:16px;
+  line-height:1.6;
+  padding:16px;
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  background:var(--panel);
+  color:var(--ink);
+  resize:vertical;
+}
+.wc{
+  text-align:right;
+  font-family:'IBM Plex Sans',sans-serif;
+  font-size:12.5px;
+  color:var(--ink-soft);
+  margin-top:6px;
+}
+.task-title{
+  font-family:'Fraunces',serif;
+  font-weight:600;
+  font-size:22px;
+  margin-bottom:8px;
+}
+.task-wc-target{
+  font-family:'IBM Plex Sans',sans-serif;
+  font-weight:400;
+  font-size:15px;
+  color:var(--accent);
+}
+.task-desc{
+  color:var(--ink);
+  font-size:17px;
+  line-height:1.6;
+  margin:0 0 10px;
+}
+.task-points{
+  margin:0 0 18px;
+  padding-left:22px;
+  font-size:16.5px;
+  line-height:1.9;
+  color:var(--ink);
+}
+.task-points li::marker{color:var(--accent);}
+
+.action-bar{
+  position:sticky;
+  bottom:0;
+  background:linear-gradient(to top, var(--bg) 70%, transparent);
+  padding:20px 0 10px;
+  display:flex;
+  gap:12px;
+  justify-content:center;
+  flex-wrap:wrap;
+}
+button{
+  font-family:'IBM Plex Sans',sans-serif;
+  font-weight:600;
+  font-size:14px;
+  padding:12px 24px;
+  border-radius:30px;
+  border:none;
+  cursor:pointer;
+  transition:transform .1s ease;
+}
+button:active{transform:scale(0.97);}
+.btn-primary{background:var(--ink);color:#fff;}
+.btn-secondary{background:var(--panel);color:var(--ink);border:1px solid var(--line) !important;}
+
+#results{
+  display:none;
+  background:var(--panel);
+  border:2px solid var(--ink);
+  border-radius:var(--radius);
+  padding:24px;
+  margin-bottom:32px;
+}
+#results h2{font-family:'Fraunces',serif;font-weight:600;margin-top:0;}
+.score-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+  gap:12px;
+  margin:18px 0;
+}
+.score-box{
+  background:var(--accent-soft);
+  border-radius:8px;
+  padding:12px 14px;
+}
+.score-box .n{font-family:'Fraunces',serif;font-size:26px;font-weight:600;color:var(--accent);}
+.score-box .l{font-size:12px;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;}
+.overall{
+  font-family:'IBM Plex Sans',sans-serif;
+  background:var(--ink);
+  color:#fff;
+  border-radius:8px;
+  padding:16px 20px;
+  margin-top:8px;
+  font-size:14.5px;
+  line-height:1.6;
+}
+.overall b{font-family:'Fraunces',serif;font-size:20px;}
+
+@media print{
+  .action-bar,.instructions,#results{display:none !important;}
+  body{background:#fff;}
+  .q,.wf-item,.passage{break-inside:avoid;}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="header">
+    <h1>English Placement &amp; Diagnostic Test</h1>
+    <div class="student-fields">
+      <label>Student name <input type="text" id="studentName" placeholder="e.g. Anna Kowalska"></label>
+      <label>Date <input type="date" id="testDate"></label>
+    </div>
+  </div>
+
+  <div class="instructions">
+    <div class="rules-icons">
+      <div class="rule-icon">
+        <svg viewBox="0 0 64 64" fill="none">
+          <rect x="18" y="24" width="28" height="22" rx="6" stroke="currentColor" stroke-width="3" fill="var(--bg)"/>
+          <line x1="32" y1="24" x2="32" y2="14" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+          <circle cx="32" cy="10" r="3.5" fill="currentColor"/>
+          <circle cx="26" cy="35" r="3" fill="currentColor"/>
+          <circle cx="38" cy="35" r="3" fill="currentColor"/>
+          <line x1="22" y1="45" x2="22" y2="52" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+          <line x1="42" y1="45" x2="42" y2="52" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+          <line x1="10" y1="30" x2="18" y2="30" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+          <line x1="46" y1="30" x2="54" y2="30" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+          <circle cx="32" cy="32" r="27" stroke="var(--brick)" stroke-width="3.5"/>
+          <line x1="12" y1="52" x2="52" y2="12" stroke="var(--brick)" stroke-width="3.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="rule-icon">
+        <svg viewBox="0 0 64 64" fill="none">
+          <rect x="7" y="14" width="26" height="20" rx="4" stroke="currentColor" stroke-width="3" fill="var(--bg)"/>
+          <text x="20" y="28" font-family="Fraunces, serif" font-size="15" font-weight="700" fill="currentColor" text-anchor="middle">A</text>
+          <rect x="31" y="30" width="26" height="20" rx="4" stroke="currentColor" stroke-width="3" fill="var(--bg)"/>
+          <text x="44" y="44" font-family="Fraunces, serif" font-size="15" font-weight="700" fill="currentColor" text-anchor="middle">文</text>
+          <path d="M33 22h5M35.5 19.5v5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+          <circle cx="32" cy="32" r="27" stroke="var(--brick)" stroke-width="3.5"/>
+          <line x1="12" y1="52" x2="52" y2="12" stroke="var(--brick)" stroke-width="3.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+    </div>
+    <p class="rules-text">Choose one answer for each question. Try to answer every question — if you're not sure, pick the option that seems most likely. Questions are mixed in difficulty and are not grouped by level.</p>
+  </div>
+
+  <div class="part" id="part1">
+    <div class="part-title">Part 1 <span class="tag">Grammar &amp; Use of English</span></div>
+    <p class="part-desc">Choose the correct option to complete each sentence.</p>
+  </div>
+  <div class="part" id="part2">
+    <div class="part-title">Part 2 <span class="tag">Vocabulary</span></div>
+    <p class="part-desc">Choose the word or phrase that best completes each sentence.</p>
+  </div>
+  <div class="part" id="part3">
+    <div class="part-title">Part 3 <span class="tag">Reading</span></div>
+    <p class="part-desc">Read each text carefully, then answer the questions below it.</p>
+    <div class="passage">
+      <div class="passage-title">Text 1</div>
+      Many people believe that learning a language requires several hours of study every day. However, research and experience suggest that regular short periods of study can also be effective. For example, studying for twenty minutes every day may be more useful than studying for three hours once a week. Regular practice helps learners remember vocabulary and grammar and makes the language a normal part of their daily routine.
+    </div>
+    <div id="p3-text1"></div>
+    <div class="passage">
+      <div class="passage-title">Text 2</div>
+      Remote work has changed the way many companies operate. Employees often appreciate the flexibility it offers, particularly when they can avoid long commutes and organise their working hours more independently. However, working remotely can also create difficulties. Some employees feel isolated from their colleagues, while others find it difficult to separate their professional and personal lives. As a result, many companies are experimenting with hybrid models that combine remote and office-based work.
+    </div>
+    <div id="p3-text2"></div>
+  </div>
+  <div class="part" id="part4">
+    <div class="part-title">Part 4 <span class="tag">Word Formation</span></div>
+    <p class="part-desc">Use the word in italics to form a word that fits correctly in each sentence.</p>
+  </div>
+
+  <div class="part" id="part6">
+    <div class="part-title">Part 6 <span class="tag">Writing</span></div>
+    <p class="part-desc">Complete both writing tasks below, keeping to the suggested word count.</p>
+    <div class="q">
+      <div class="task-title">Task 1. Personal writing <span class="task-wc-target">(100–150 words)</span></div>
+      <p class="task-desc">Write about yourself. Include:</p>
+      <ul class="task-points">
+        <li>who you are</li>
+        <li>where you live</li>
+        <li>what you do / study</li>
+        <li>your hobbies</li>
+        <li>your typical day</li>
+        <li>your plans for the future</li>
+      </ul>
+      <textarea id="w1" oninput="updateWC('w1','wc1')"></textarea>
+      <div class="wc" id="wc1">0 words</div>
+    </div>
+    <div class="q">
+      <div class="task-title">Task 2. Opinion <span class="task-wc-target">(150–200 words)</span></div>
+      <p class="task-desc">Some people believe that social media has a negative effect on young people's lives. Others think it has more advantages than disadvantages.</p>
+      <ul class="task-points">
+        <li>discuss both views</li>
+        <li>give your own opinion</li>
+      </ul>
+      <textarea id="w2" oninput="updateWC('w2','wc2')"></textarea>
+      <div class="wc" id="wc2">0 words</div>
+    </div>
+  </div>
+
+  <div id="results">
+    <h2>Results</h2>
+    <div class="score-grid" id="scoreGrid"></div>
+    <div class="overall" id="overallBox"></div>
+    <button class="btn-secondary" id="copyBtn" onclick="copySummary()" style="margin-top:16px;">Copy results to send to your teacher</button>
+    <div id="copyConfirm" style="display:none;margin-top:8px;font-size:13px;color:var(--accent);">Copied — paste it in a message to your teacher.</div>
+  </div>
+
+  <div class="action-bar">
+    <button class="btn-primary" onclick="checkAnswers()">Check answers</button>
+    <button class="btn-secondary" onclick="resetAll()">Reset</button>
+  </div>
+
+</div>
+
+<script>
+// Each item: [number, question text with ___ , [options], correctIndex(0-based)]
+const P1 = [
+[1,"My name ___ Anna.",["am","is","are","be"],1],
+[2,"They ___ from Poland.",["is","am","are","be"],2],
+[3,"I ___ two brothers.",["have","has","am have","having"],0],
+[4,"She ___ coffee every morning.",["drink","drinks","drinking","is drink"],1],
+[5,"___ you like pizza?",["Are","Is","Do","Does"],2],
+[6,"There ___ a book on the table.",["are","be","is","have"],2],
+[7,"I usually go to school ___ bus.",["on","with","by","in"],2],
+[8,"This is ___ apple.",["a","an","the","—"],1],
+[9,"We ___ TV right now.",["watch","watches","are watching","watching"],2],
+[10,"Yesterday I ___ to the cinema.",["go","went","gone","going"],1],
+[11,"She ___ English for three years.",["studies","studied","has studied","is study"],2],
+[12,"What ___ you doing when I called?",["did","were","have","are"],1],
+[13,"I haven't seen him ___ Monday.",["for","since","during","from"],1],
+[14,"If it rains tomorrow, we ___ at home.",["stay","stayed","will stay","would stay"],2],
+[15,"You ___ smoke here. It's forbidden.",["don't have to","mustn't","shouldn't to","couldn't"],1],
+[16,"This book is ___ than the other one.",["interesting","more interesting","most interesting","interestinger"],1],
+[17,"I need ___ some milk.",["buy","buying","to buy","bought"],2],
+[18,"He isn't at home. He ___ to work.",["has gone","has been","went","goes"],0],
+[19,"I ___ this film last week.",["have seen","see","saw","have been seeing"],2],
+[20,"There aren't ___ apples left.",["much","many","a little","enough of"],1],
+[21,"When I arrived, they ___ dinner.",["had","have","were having","have had"],2],
+[22,"I've never ___ such a beautiful place.",["see","saw","seen","seeing"],2],
+[23,"She asked me where ___.",["did I live","I lived","do I live","I live did"],1],
+[24,"The car ___ last year.",["made","was made","has made","is making"],1],
+[25,"If I ___ more time, I'd learn another language.",["have","had","would have","will have"],1],
+[26,"He said he ___ tired.",["is","has","was","will"],2],
+[27,"I used to ___ football when I was younger.",["playing","played","play","have played"],2],
+[28,"You look tired. You ___ go to bed earlier.",["should","mustn't","can't","wouldn't"],0],
+[29,"That's the woman ___ son goes to my school.",["who","which","whose","whom"],2],
+[30,"I don't know ___ he didn't come.",["what","why","which","whose"],1],
+[31,"By the time we arrived, the film ___.",["started","has started","had started","was starting"],2],
+[32,"I've been working here ___ 2023.",["for","since","during","from"],1],
+[33,"If you had told me earlier, I ___ you.",["help","would help","would have helped","had helped"],2],
+[34,"He denied ___ the money.",["steal","to steal","stealing","stolen"],2],
+[35,"The project needs ___ by Friday.",["finish","finishing","to finish","to be finished"],1],
+[36,"I wish I ___ more confident when speaking English.",["am","were","would be","have been"],1],
+[37,"She ___ have forgotten about the meeting. She hasn't arrived yet.",["must","should","might","ought"],0],
+[38,"Despite ___ very tired, he continued working.",["be","being","was","to be"],1],
+[39,"It's no use ___ about something you can't change.",["worry","to worry","worrying","worried"],2],
+[40,"The company is expected ___ the new product next month.",["launch","launching","to launch","launched"],2],
+];
+const P2 = [
+[41,"I was extremely ___ when I heard the news.",["delighted","delighting","delight","delightful"],0],
+[42,"Can you ___ me a favour?",["make","do","take","give"],1],
+[43,"She ___ a decision after thinking about it carefully.",["did","made","took","created"],1],
+[44,"The opposite of generous is:",["selfish","honest","reliable","patient"],0],
+[45,"\u201cI'm exhausted\u201d means:",["I'm slightly worried.","I'm extremely tired.","I'm very excited.","I'm completely bored."],1],
+[46,"We need to ___ the problem before it gets worse.",["solve","answer","do","make"],0],
+[47,"He ___ responsibility for the mistake.",["took","made","did","got"],0],
+[48,"The meeting was ___ because the manager was ill.",["called off","taken off","put out","broken down"],0],
+[49,"She has a very ___ knowledge of economics.",["wide","broad","large","big"],1],
+[50,"The word reluctant is closest in meaning to:",["unwilling","enthusiastic","confused","unable"],0],
+[51,"The company is trying to ___ costs.",["cut","break","damage","decrease down"],0],
+[52,"His explanation was completely ___.",["convincing","convinced","convince","convincingly"],0],
+[53,"I don't want to ___ the issue. Let's discuss it calmly.",["avoid","ignore","escape","prevent"],0],
+[54,"She eventually ___ to the pressure and accepted the offer.",["gave in","gave away","gave off","gave out"],0],
+[55,"The new policy is likely to have a significant ___ on small businesses.",["affect","effect","result of","consequence to"],1],
+[56,"He has always been ___ about his private life.",["reserved","preserved","conserved","retained"],0],
+[57,"We need to take all the relevant factors into ___.",["thought","mind","consideration","attention"],2],
+[58,"The evidence seems to ___ that the theory is correct.",["suggest","tell","say","speak"],0],
+[59,"Her argument is difficult to ___ because there isn't enough evidence.",["justify","excuse","defendable","approve"],0],
+[60,"The word substantial is closest in meaning to:",["insignificant","considerable","temporary","unnecessary"],1],
+];
+const P3 = [
+[61,"What is the main idea?",["People should study languages for three hours a day.","Short but regular study can be effective.","Grammar is more important than vocabulary.","Learning languages is difficult for most people."],1],
+[62,"According to the text, regular practice helps learners:",["avoid grammar completely","remember language better","study only once a week","learn without making mistakes"],1],
+[63,"What does \u201ceffective\u201d mean in this context?",["expensive","successful","complicated","unusual"],1],
+[64,"Which study routine is presented as potentially more useful?",["Three hours every day","Twenty minutes every day","Three hours once a month","No regular practice"],1],
+[65,"The author suggests that language learning should:",["become part of everyday life","be done only at school","focus exclusively on grammar","take several hours every day"],0],
+];
+const P3B = [
+[66,"Why do some employees like remote work?",["It eliminates all professional responsibilities.","It can give them greater flexibility.","It guarantees higher salaries.","It requires more commuting."],1],
+[67,"What is one disadvantage mentioned?",["Employees cannot communicate online.","Employees have too many holidays.","Some employees feel isolated.","Companies cannot use technology."],2],
+[68,"What problem can remote workers experience at home?",["They may find it difficult to separate work and personal life.","They cannot organise their working hours.","They always work fewer hours.","They have no professional responsibilities."],0],
+[69,"What are companies experimenting with?",["Completely abandoning offices","Longer working weeks","Hybrid working models","Eliminating remote work"],2],
+[70,"The word \u201cflexibility\u201d most nearly means:",["the ability to adapt or choose how something is organised","the requirement to follow strict rules","the ability to work without colleagues","a reduction in working hours"],0],
+];
+const P4 = [
+[71,"The company needs to improve its financial ___.","STABLE",["stability","stable","stabilise","stabilisation"],0],
+[72,"His behaviour was completely ___.","APPROPRIATE",["inappropriate","inappropriately","appropriation","appropriateness"],0],
+[73,"There has been a significant ___ in unemployment.","REDUCE",["reducing","reduction","reduced","reducibility"],1],
+[74,"She answered the question with great ___.","CONFIDENT",["confident","confidently","confidence","confidential"],2],
+[75,"The decision was highly ___.","CONTROVERSY",["controversial","controversy","controversially","controvert"],0],
+];
+
+function renderMC(list, container){
+  const letters=['A','B','C','D'];
+  let html='';
+  list.forEach(item=>{
+    const [num, text, opts, ans] = item;
+    html += `<div class="q" data-num="${num}" data-ans="${ans}">
+      <div class="q-text"><span class="num">${num}.</span>${text}</div>
+      <div class="opts">`;
+    opts.forEach((o,i)=>{
+      html += `<label class="opt"><input type="radio" name="q${num}" value="${i}">${letters[i]}) ${o}</label>`;
+    });
+    html += `</div></div>`;
+  });
+  document.getElementById(container).insertAdjacentHTML('beforeend', html);
+}
+
+function renderWF(list, container){
+  let html='';
+  list.forEach(item=>{
+    const [num, text, base, opts, ans] = item;
+    const letters=['A','B','C','D'];
+    html += `<div class="wf-item" data-num="${num}" data-ans="${ans}">
+      <div class="q-text"><span class="num">${num}.</span>${text}<span class="base">${base}</span></div>
+      <div class="opts">`;
+    opts.forEach((o,i)=>{
+      html += `<label class="opt"><input type="radio" name="q${num}" value="${i}">${letters[i]}) ${o}</label>`;
+    });
+    html += `</div></div>`;
+  });
+  document.getElementById(container).insertAdjacentHTML('beforeend', html);
+}
+
+renderMC(P1,'part1');
+renderMC(P2,'part2');
+renderMC(P3,'p3-text1');
+renderMC(P3B,'p3-text2');
+renderWF(P4,'part4');
+
+function updateWC(taId, wcId){
+  const val = document.getElementById(taId).value.trim();
+  const count = val.length ? val.split(/\s+/).length : 0;
+  document.getElementById(wcId).textContent = count + ' words';
+}
+
+function checkAnswers(){
+  const sections = [
+    {name:'Grammar (1\u201340)', ids:P1.map(x=>x[0])},
+    {name:'Vocabulary (41\u201360)', ids:P2.map(x=>x[0])},
+    {name:'Reading (61\u201370)', ids:[...P3,...P3B].map(x=>x[0])},
+    {name:'Word Formation (71\u201375)', ids:P4.map(x=>x[0])},
+  ];
+  let totalCorrect=0, totalQ=0;
+  const scoreGrid = document.getElementById('scoreGrid');
+  scoreGrid.innerHTML='';
+
+  sections.forEach(sec=>{
+    let correct=0;
+    sec.ids.forEach(num=>{
+      const box = document.querySelector(`[data-num="${num}"]`);
+      const ansIdx = parseInt(box.dataset.ans);
+      const checked = box.querySelector('input[type=radio]:checked');
+      box.querySelectorAll('.opt').forEach(o=>o.classList.remove('correct','incorrect'));
+      const correctLabel = box.querySelectorAll('.opt')[ansIdx];
+      if(checked){
+        const chosenIdx = parseInt(checked.value);
+        if(chosenIdx===ansIdx){ correct++; correctLabel.classList.add('correct'); }
+        else{ checked.closest('.opt').classList.add('incorrect'); correctLabel.classList.add('correct'); }
+      } else {
+        correctLabel.classList.add('correct');
+      }
+    });
+    totalCorrect += correct; totalQ += sec.ids.length;
+    scoreGrid.insertAdjacentHTML('beforeend', `<div class="score-box"><div class="n">${correct}/${sec.ids.length}</div><div class="l">${sec.name}</div></div>`);
+  });
+
+  const pct = Math.round((totalCorrect/totalQ)*100);
+  let band;
+  if(pct<25){band='A0\u2013A1 range \u2014 needs foundational grammar and core vocabulary work.';}
+  else if(pct<40){band='A2 range \u2014 basic structures are shaky in places; focus on tense control and word order.';}
+  else if(pct<60){band='B1 range \u2014 can handle everyday language; struggles with more complex tenses and linking.';}
+  else{band='B2 range \u2014 solid overall control; check remaining errors for precision rather than basics.';}
+
+  document.getElementById('overallBox').innerHTML = `<b>${totalCorrect}/${totalQ} (${pct}%)</b><br>${band}`;
+  document.getElementById('results').style.display='block';
+  document.getElementById('results').scrollIntoView({behavior:'smooth'});
+
+  window._lastSummary = {sections, totalCorrect, totalQ, pct, band};
+}
+
+function copySummary(){
+  const data = window._lastSummary;
+  if(!data) return;
+  const name = document.getElementById('studentName').value.trim() || '(no name entered)';
+  const date = document.getElementById('testDate').value || '(no date entered)';
+  let text = `English Placement Test — results\nStudent: ${name}\nDate: ${date}\n\n`;
+  const boxes = document.querySelectorAll('#scoreGrid .score-box');
+  boxes.forEach(b=>{
+    const n = b.querySelector('.n').textContent;
+    const l = b.querySelector('.l').textContent;
+    text += `${l}: ${n}\n`;
+  });
+  text += `\nOverall: ${data.totalCorrect}/${data.totalQ} (${data.pct}%)\n${data.band}\n`;
+  text += `\n— Task 1 (Personal writing) —\n${document.getElementById('w1').value.trim() || '(not written)'}\n`;
+  text += `\n— Task 2 (Opinion) —\n${document.getElementById('w2').value.trim() || '(not written)'}\n`;
+
+  navigator.clipboard.writeText(text).then(()=>{
+    document.getElementById('copyConfirm').style.display='block';
+  }).catch(()=>{
+    alert(text); // fallback if clipboard API is blocked
+  });
+}
+
+function resetAll(){
+  document.querySelectorAll('input[type=radio]').forEach(r=>r.checked=false);
+  document.querySelectorAll('.opt').forEach(o=>o.classList.remove('correct','incorrect'));
+  document.getElementById('results').style.display='none';
+  document.getElementById('w1').value=''; document.getElementById('w2').value='';
+  updateWC('w1','wc1'); updateWC('w2','wc2');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>
